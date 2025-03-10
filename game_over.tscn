@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmhufknaox018"]
+
+[ext_resource type="Texture2D" uid="uid://cmijo2qaxx5u2" path="res://assents/Seasonal Tilesets/Seasonal Tilesets/game_over.png" id="1_68e5n"]
+[ext_resource type="Script" path="res://game_over.gd" id="1_oi6ju"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oi6ju")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 905.0
+offset_bottom = 510.0
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 52.0
+offset_right = 604.0
+offset_bottom = 205.0
+texture = ExtResource("1_68e5n")
+
+[node name="restart_Btn" type="Button" parent="ColorRect/TextureRect"]
+offset_left = 38.0
+offset_top = 176.0
+offset_right = 311.0
+offset_bottom = 257.0
+text = "JOGAR NOVAMENTE"
+
+[connection signal="pressed" from="ColorRect/TextureRect/restart_Btn" to="." method="_on_restart_btn_pressed"]

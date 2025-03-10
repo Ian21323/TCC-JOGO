@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvd3bxv7nl1eo"]
+
+[ext_resource type="Script" path="res://verao.gd" id="1_ru5w7"]
+[ext_resource type="Texture2D" uid="uid://gqup20urlfct" path="res://assents/Mini FX, Items & UI/Food Items/Burger_&_Fries (16 x 16).png" id="1_sg4t5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u4w01"]
+radius = 14.0
+
+[sub_resource type="Animation" id="Animation_of48u"]
+resource_name = "flotat"
+
+[sub_resource type="Animation" id="Animation_k4jju"]
+resource_name = "new_animation"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1py1s"]
+_data = {
+"flotat": SubResource("Animation_of48u"),
+"new_animation": SubResource("Animation_k4jju")
+}
+
+[node name="verao" type="Area2D"]
+script = ExtResource("1_ru5w7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Burger&Fries(16X16)" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, -11)
+scale = Vector2(2.23333, 2.125)
+texture = ExtResource("1_sg4t5")
+region_enabled = true
+region_rect = Rect2(0, 0, 15, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -4)
+shape = SubResource("CircleShape2D_u4w01")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1py1s")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

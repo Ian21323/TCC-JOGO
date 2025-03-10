@@ -1,0 +1,143 @@
+[gd_scene load_steps=18 format=3 uid="uid://du5tfhjxts3ir"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_410n6"]
+[ext_resource type="Texture2D" uid="uid://bwn2oaya6mjim" path="res://assents/Sprite Pack 2/Sprite Pack 2/2 - Mr. Mochi/Hurt (32 x 32).png" id="2_0g30x"]
+[ext_resource type="Texture2D" uid="uid://b7nwfwtqt73ov" path="res://assents/Sprite Pack 2/Sprite Pack 2/2 - Mr. Mochi/Idle (32 x 32).png" id="2_ugmww"]
+[ext_resource type="Texture2D" uid="uid://d12ds1k56dunu" path="res://assents/Sprite Pack 2/Sprite Pack 2/2 - Mr. Mochi/Jumping (32 x 32).png" id="3_bqu6a"]
+[ext_resource type="Texture2D" uid="uid://ciek221acqwkr" path="res://assents/Sprite Pack 2/Sprite Pack 2/2 - Mr. Mochi/Running (32 x 32).png" id="3_glvhc"]
+[ext_resource type="Script" path="res://atores/front_ray.gd" id="5_wrep3"]
+[ext_resource type="AudioStream" uid="uid://ctm7dvek2i4y4" path="res://musica/386630__jalastram__sfx_jump_23.wav" id="7_usfdl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vmywq"]
+radius = 7.0
+height = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6m5l"]
+atlas = ExtResource("2_ugmww")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yttv"]
+atlas = ExtResource("2_ugmww")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1njd"]
+atlas = ExtResource("3_bqu6a")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s07u2"]
+atlas = ExtResource("3_glvhc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miuik"]
+atlas = ExtResource("3_glvhc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_343ca"]
+atlas = ExtResource("3_glvhc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvmgp"]
+atlas = ExtResource("3_glvhc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l666t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0g30x")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6m5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yttv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1njd")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s07u2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miuik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_343ca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvmgp")
+}],
+"loop": true,
+"name": &"run",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ry6h1"]
+size = Vector2(20, 15)
+
+[node name="player" type="CharacterBody2D"]
+position = Vector2(0, -6)
+collision_layer = 3
+collision_mask = 27
+script = ExtResource("1_410n6")
+
+[node name="collisor" type="CollisionShape2D" parent="."]
+light_mask = 3
+visibility_layer = 7
+position = Vector2(-1, -7)
+shape = SubResource("CapsuleShape2D_vmywq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(-2, -40)
+zoom = Vector2(2, 2)
+limit_left = -150
+limit_top = -100000000
+limit_right = 1410065408
+limit_bottom = 1177457232
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -15)
+sprite_frames = SubResource("SpriteFrames_l666t")
+animation = &"hurt"
+autoplay = "idle"
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="collision" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(-1, -10.5)
+shape = SubResource("RectangleShape2D_ry6h1")
+debug_color = Color(0.993305, 0.241131, 0.502439, 0.42)
+
+[node name="front_ray" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+target_position = Vector2(11, 0)
+script = ExtResource("5_wrep3")
+
+[node name="front_ray" type="RayCast2D" parent="front_ray"]
+target_position = Vector2(-14, 0)
+script = ExtResource("5_wrep3")
+
+[node name="jum_bg" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_usfdl")
+volume_db = -27.703
+
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

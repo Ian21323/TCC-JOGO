@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg80nbxtw53pu"]
+
+[ext_resource type="PackedScene" uid="uid://bvd3bxv7nl1eo" path="res://verao.tscn" id="1_r6g5r"]
+
+[node name="Area2D" type="Area2D"]
+
+[node name="verao" parent="." instance=ExtResource("1_r6g5r")]
+
+[node name="Node" type="Node" parent="."]

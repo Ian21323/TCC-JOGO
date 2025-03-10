@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cy4ucj58tmuf8"]
+
+[ext_resource type="Script" uid="uid://bdbx13ydanluj" path="res://goal.gd" id="1_lr62h"]
+[ext_resource type="Texture2D" uid="uid://gqup20urlfct" path="res://assents/Mini FX, Items & UI/Food Items/Burger_&_Fries (16 x 16).png" id="2_efkk5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tncdj"]
+radius = 14.0
+
+[sub_resource type="Animation" id="Animation_of48u"]
+resource_name = "flotat"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1py1s"]
+_data = {
+&"flotat": SubResource("Animation_of48u")
+}
+
+[node name="goal2" type="Area2D"]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_lr62h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Burger&Fries(16X16)" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, -11)
+scale = Vector2(2.23333, 2.125)
+texture = ExtResource("2_efkk5")
+region_enabled = true
+region_rect = Rect2(0, 0, 15, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -4)
+shape = SubResource("CircleShape2D_tncdj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1py1s")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
